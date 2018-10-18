@@ -42,5 +42,10 @@
         public Person() : this("No name", 1)
         {
         }
+
+        public override string ToString()
+        {
+            return $"{name} {age}";
+        }
     }
 }
