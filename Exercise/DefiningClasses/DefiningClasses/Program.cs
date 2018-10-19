@@ -9,46 +9,37 @@ namespace DefiningClasses
         public static void Main(string[] args)
         {
             var count = int.Parse(Console.ReadLine());
-            var rooster = new Dictionary<string, List<Employee>>();
+            var allCars = new List<Car>();
 
             for (int i = 0; i < count; i++)
             {
                 var tokens = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                Employee current;
-                var department = tokens[3];
-                switch (tokens.Length)
+                var model = tokens[0];
+                var fuelAmount = double.Parse(tokens[1]);
+                var fuelConsumption = double.Parse(tokens[2]);
+
+                if (allCars.Any(p => p.Model.Equals(model)))
                 {
-                    case 6:
-                        current = new Employee(tokens[0], decimal.Parse(tokens[1]), tokens[2], tokens[3], tokens[4], int.Parse(tokens[5]));
-                        break;
-
-                    case 5:
-                        try
-                        {
-                            current = new Employee(tokens[0], decimal.Parse(tokens[1]), tokens[2], tokens[3], int.Parse(tokens[4]));
-                        }
-                        catch (Exception)
-                        {
-                            current = new Employee(tokens[0], decimal.Parse(tokens[1]), tokens[2], tokens[3], tokens[4]);
-                        }
-
-                        break;
-
-                    default:
-                        current = new Employee(tokens[0], decimal.Parse(tokens[1]), tokens[2], tokens[3]);
-                        break;
+                    continue;
                 }
-
-                if (!rooster.ContainsKey(department))
-                {
-                    rooster.Add(department, new List<Employee>());
-                }
-                rooster[department].Add(current);
+                allCars.Add(new Car(model, fuelAmount, fuelConsumption));
             }
 
-            var winner = rooster.OrderByDescending(p => p.Value.Average(x => x.GetSalary())).First();
-            Console.WriteLine($"Highest Average Salary: {winner.Key}");
-            winner.Value.OrderByDescending(p => p.GetSalary()).ToList().ForEach(Console.WriteLine);
+            string input;
+
+            while (!(input = Console.ReadLine()).Equals("End"))
+            {
+                var tokens = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var model = tokens[1];
+                var distance = double.Parse(tokens[2]);
+
+                if (allCars.Any(p => p.Model.Equals(model)))
+                {
+                    allCars.First(p => p.Model.Equals(model)).Drive(distance);
+                }
+            }
+
+            allCars.ForEach(Console.WriteLine);
         }
     }
 }
