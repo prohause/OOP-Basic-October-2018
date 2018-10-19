@@ -15,31 +15,38 @@ namespace DefiningClasses
             {
                 var tokens = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 var model = tokens[0];
-                var fuelAmount = double.Parse(tokens[1]);
-                var fuelConsumption = double.Parse(tokens[2]);
+                var engineSpeed = int.Parse(tokens[1]);
+                var enginePower = int.Parse(tokens[2]);
+                var cargoWeight = int.Parse(tokens[3]);
+                var cargoType = tokens[4];
+                var tyre1Pressure = double.Parse(tokens[5]);
+                var tyre2Pressure = double.Parse(tokens[7]);
+                var tyre3Pressure = double.Parse(tokens[9]);
+                var tyre4Pressure = double.Parse(tokens[11]);
+                var tyre1Age = int.Parse(tokens[6]);
+                var tyre2Age = int.Parse(tokens[8]);
+                var tyre3Age = int.Parse(tokens[10]);
+                var tyre4Age = int.Parse(tokens[12]);
 
-                if (allCars.Any(p => p.Model.Equals(model)))
+                var engine = new Engine(engineSpeed, enginePower);
+                var cargo = new Cargo(cargoWeight, cargoType);
+                var tyres = new List<Tyre>
                 {
-                    continue;
-                }
-                allCars.Add(new Car(model, fuelAmount, fuelConsumption));
+                    new Tyre(tyre1Pressure,tyre1Age),new Tyre(tyre2Pressure,tyre2Age),
+                    new Tyre(tyre3Pressure,tyre3Age),new Tyre(tyre4Pressure,tyre4Age)
+                };
+                allCars.Add(new Car(model, engine, cargo, tyres));
             }
 
-            string input;
-
-            while (!(input = Console.ReadLine()).Equals("End"))
+            var search = Console.ReadLine();
+            if (search.Equals("fragile"))
             {
-                var tokens = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var model = tokens[1];
-                var distance = double.Parse(tokens[2]);
-
-                if (allCars.Any(p => p.Model.Equals(model)))
-                {
-                    allCars.First(p => p.Model.Equals(model)).Drive(distance);
-                }
+                allCars.Where(p => p.Cargo1.GetCargoType().Equals("fragile") && p.Tyres.Any(x => x.UnderInflated())).ToList().ForEach(Console.WriteLine);
             }
-
-            allCars.ForEach(Console.WriteLine);
+            else if (search.Equals("flamable"))
+            {
+                allCars.Where(p => p.Cargo1.GetCargoType().Equals("flamable") && p.Engine1.OverPower()).ToList().ForEach(Console.WriteLine);
+            }
         }
     }
 }

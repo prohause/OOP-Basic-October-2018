@@ -1,50 +1,49 @@
-﻿using System;
+﻿using System.Collections.Generic;
 
 namespace DefiningClasses
 {
     internal class Car
     {
         private string _model;
-        private double _fuelAmount;
-        private double _fuelConsumption;
-        private double _traveledDistance;
-
-        public Car(string model, double fuelAmount, double fuelConsumption)
-        {
-            Model = model;
-            _fuelAmount = fuelAmount;
-            _fuelConsumption = fuelConsumption;
-            _traveledDistance = 0;
-        }
+        private Engine _engine;
+        private Cargo _cargo;
+        private List<Tyre> _tyres;
 
         public string Model
         {
-            get
-            {
-                return _model;
-            }
-            set
-            {
-                _model = value;
-            }
+            get => _model;
+            set => _model = value;
         }
 
-        public void Drive(double distance)
+        public Engine Engine1
         {
-            if (distance * _fuelConsumption <= _fuelAmount)
-            {
-                _traveledDistance += distance;
-                _fuelAmount -= _fuelConsumption * distance;
-            }
-            else
-            {
-                Console.WriteLine("Insufficient fuel for the drive");
-            }
+            get => _engine;
+            set => _engine = value;
+        }
+
+        public Cargo Cargo1
+        {
+            get => _cargo;
+            set => _cargo = value;
+        }
+
+        public List<Tyre> Tyres
+        {
+            get => _tyres;
+            set => _tyres = value;
+        }
+
+        public Car(string model, Engine engine, Cargo cargo, List<Tyre> tyres)
+        {
+            Model = model;
+            Engine1 = engine;
+            Cargo1 = cargo;
+            Tyres = tyres;
         }
 
         public override string ToString()
         {
-            return $"{Model} {_fuelAmount:F2} {_traveledDistance:F0}";
+            return Model;
         }
     }
 }
