@@ -8,69 +8,42 @@ namespace DefiningClasses
     {
         public static void Main(string[] args)
         {
-            var engineCount = int.Parse(Console.ReadLine());
-            var allEngines = new List<Engine>();
+            var allTrainers = new List<Trainer>();
+            string input;
 
-            for (int i = 0; i < engineCount; i++)
+            while (!(input = Console.ReadLine()).Equals("Tournament"))
             {
-                var tokens = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var model = tokens[0];
-                var power = int.Parse(tokens[1]);
+                var tokens = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var trainerName = tokens[0];
+                var pokemonName = tokens[1];
+                var pokemonElement = tokens[2];
+                var pokemonHealth = int.Parse(tokens[3]);
 
-                switch (tokens.Length)
+                if (!allTrainers.Any(p => p.GetName().Equals(trainerName)))
                 {
-                    case 4:
-                        allEngines.Add(new Engine(model, power, int.Parse(tokens[2]), tokens[3]));
-                        break;
-
-                    case 3:
-                        try
-                        {
-                            allEngines.Add(new Engine(model, power, int.Parse(tokens[2])));
-                        }
-                        catch (Exception)
-                        {
-                            allEngines.Add(new Engine(model, power, tokens[2]));
-                        }
-
-                        break;
-
-                    case 2:
-                        allEngines.Add(new Engine(model, power));
-                        break;
+                    allTrainers.Add(new Trainer(trainerName));
                 }
+
+                allTrainers.First(p => p.GetName().Equals(trainerName))
+                    .AddPokemon(new Pokemon(pokemonName, pokemonElement, pokemonHealth));
             }
-            var allCars = new List<Car>();
-            var carCount = int.Parse(Console.ReadLine());
-            for (int i = 0; i < carCount; i++)
-            {
-                var tokens = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var carModel = tokens[0];
-                var engineModel = tokens[1];
-                var currentEngine = allEngines.First(p => p.GetModel().Equals(engineModel));
 
-                if (tokens.Length == 4)
+            while (!(input = Console.ReadLine()).Equals("End"))
+            {
+                foreach (var trainer in allTrainers)
                 {
-                    allCars.Add(new Car(carModel, currentEngine, int.Parse(tokens[2]), tokens[3]));
-                }
-                else if (tokens.Length == 3)
-                {
-                    try
+                    if (trainer.HAsElement(input))
                     {
-                        allCars.Add(new Car(carModel, currentEngine, int.Parse(tokens[2])));
+                        trainer.AddBadge();
                     }
-                    catch (Exception)
+                    else
                     {
-                        allCars.Add(new Car(carModel, currentEngine, tokens[2]));
+                        trainer.DecreaseHealth();
                     }
-                }
-                else if (tokens.Length == 2)
-                {
-                    allCars.Add(new Car(carModel, currentEngine));
                 }
             }
 
-            allCars.ForEach(Console.WriteLine);
+            allTrainers.OrderByDescending(p => p.GetBadges()).ToList().ForEach(Console.WriteLine);
         }
     }
 }
