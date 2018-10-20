@@ -1,49 +1,37 @@
-﻿using System.Collections.Generic;
-
-namespace DefiningClasses
+﻿namespace DefiningClasses
 {
     internal class Car
     {
-        private string _model;
-        private Engine _engine;
-        private Cargo _cargo;
-        private List<Tyre> _tyres;
+        private readonly string _model;
+        private readonly Engine _engine;
+        private readonly int? _weight;
+        private readonly string _color;
 
-        public string Model
+        public Car(string model, Engine engine, int? weight, string color)
         {
-            get => _model;
-            set => _model = value;
+            _model = model;
+            _engine = engine;
+            _weight = weight;
+            _color = color;
         }
 
-        public Engine Engine1
+        public Car(string model, Engine engine, int? weight) : this(model, engine, weight, null)
         {
-            get => _engine;
-            set => _engine = value;
         }
 
-        public Cargo Cargo1
+        public Car(string model, Engine engine, string color) : this(model, engine, null, color)
         {
-            get => _cargo;
-            set => _cargo = value;
         }
 
-        public List<Tyre> Tyres
+        public Car(string model, Engine engine) : this(model, engine, null, null)
         {
-            get => _tyres;
-            set => _tyres = value;
-        }
-
-        public Car(string model, Engine engine, Cargo cargo, List<Tyre> tyres)
-        {
-            Model = model;
-            Engine1 = engine;
-            Cargo1 = cargo;
-            Tyres = tyres;
         }
 
         public override string ToString()
         {
-            return Model;
+            var weight = _weight == null ? "n/a" : _weight.ToString();
+            var color = _color ?? "n/a";
+            return $"{_model}:\n{_engine}\n  Weight: {weight}\n  Color: {color}";
         }
     }
 }
