@@ -8,44 +8,40 @@ namespace DefiningClasses
     {
         public static void Main(string[] args)
         {
-            var count = int.Parse(Console.ReadLine());
-            var allCars = new List<Car>();
+            var tokens = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToList();
+            var count = tokens[0];
+            var intersections = tokens[1];
+            var allRect = new List<Rectangle>();
 
             for (int i = 0; i < count; i++)
             {
-                var tokens = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var model = tokens[0];
-                var engineSpeed = int.Parse(tokens[1]);
-                var enginePower = int.Parse(tokens[2]);
-                var cargoWeight = int.Parse(tokens[3]);
-                var cargoType = tokens[4];
-                var tyre1Pressure = double.Parse(tokens[5]);
-                var tyre2Pressure = double.Parse(tokens[7]);
-                var tyre3Pressure = double.Parse(tokens[9]);
-                var tyre4Pressure = double.Parse(tokens[11]);
-                var tyre1Age = int.Parse(tokens[6]);
-                var tyre2Age = int.Parse(tokens[8]);
-                var tyre3Age = int.Parse(tokens[10]);
-                var tyre4Age = int.Parse(tokens[12]);
+                var elements = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var id = elements[0];
+                var width = double.Parse(elements[1]);
+                var height = double.Parse(elements[2]);
+                var positionX = double.Parse(elements[3]);
+                var positionY = double.Parse(elements[4]);
 
-                var engine = new Engine(engineSpeed, enginePower);
-                var cargo = new Cargo(cargoWeight, cargoType);
-                var tyres = new List<Tyre>
+                allRect.Add(new Rectangle(id, width, height, positionX, positionY));
+            }
+
+            for (int i = 0; i < intersections; i++)
+            {
+                var elements = Console.ReadLine().Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                var firstRect = elements[0];
+                var secondRect = elements[1];
+
+                if (!allRect.Any(p => p.GetId().Equals(firstRect)) ||
+                    !allRect.Any(p => p.GetId().Equals(secondRect)))
                 {
-                    new Tyre(tyre1Pressure,tyre1Age),new Tyre(tyre2Pressure,tyre2Age),
-                    new Tyre(tyre3Pressure,tyre3Age),new Tyre(tyre4Pressure,tyre4Age)
-                };
-                allCars.Add(new Car(model, engine, cargo, tyres));
-            }
+                    continue;
+                }
 
-            var search = Console.ReadLine();
-            if (search.Equals("fragile"))
-            {
-                allCars.Where(p => p.Cargo1.GetCargoType().Equals("fragile") && p.Tyres.Any(x => x.UnderInflated())).ToList().ForEach(Console.WriteLine);
-            }
-            else if (search.Equals("flamable"))
-            {
-                allCars.Where(p => p.Cargo1.GetCargoType().Equals("flamable") && p.Engine1.OverPower()).ToList().ForEach(Console.WriteLine);
+                {
+                    var intersects = allRect.First(p => p.GetId().Equals(firstRect))
+                        .Intersects(allRect.First(p => p.GetId().Equals(secondRect)));
+                    Console.WriteLine(intersects.ToString().ToLower());
+                }
             }
         }
     }
