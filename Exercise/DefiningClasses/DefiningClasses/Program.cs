@@ -8,88 +8,39 @@ namespace DefiningClasses
     {
         public static void Main(string[] args)
         {
-            var allPersons = new List<Person>();
+            var searchFor = Console.ReadLine();
             string input;
+            var family = new List<Person>();
+            var relations = new List<string>();
 
             while ((input = Console.ReadLine()) != "End")
             {
+                if (input.Contains("-"))
+                {
+                    relations.Add(input);
+                    continue;
+                }
+
                 var tokens = input.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-                var name = tokens[0];
-                var command = tokens[1];
-                if (!allPersons.Any(p => p.GetName().Equals(name)))
-                {
-                    allPersons.Add(new Person(name));
-                }
-
-                switch (command)
-                {
-                    case "company":
-                        SetCompany(name, allPersons, tokens);
-                        break;
-
-                    case "pokemon":
-                        AddPokemon(name, allPersons, tokens);
-                        break;
-
-                    case "parents":
-                        AddParent(name, allPersons, tokens);
-                        break;
-
-                    case "children":
-                        AddChild(name, allPersons, tokens);
-                        break;
-
-                    case "car":
-                        SetCar(name, allPersons, tokens);
-                        break;
-                }
+                var name = tokens[0] + " " + tokens[1];
+                var birthday = tokens[2];
+                family.Add(new Person(name, birthday));
             }
 
-            var searchFor = Console.ReadLine();
-            allPersons.First(p => p.GetName().Equals(searchFor)).Print();
-        }
+            foreach (var line in relations)
+            {
+                var tokens = line.Split(new[] { "-" }, StringSplitOptions.RemoveEmptyEntries).Select(p => p.Trim()).ToList();
+                var parentParams = tokens[0];
+                var childrenParams = tokens[1];
 
-        private static void SetCar(string name, List<Person> allPersons, string[] tokens)
-        {
-            var carModel = tokens[2];
-            var carSpeed = int.Parse(tokens[3]);
-            var car = new Car(carModel, carSpeed);
-            allPersons.First(p => p.GetName().Equals(name)).SetCar(car);
-        }
+                var parent = parentParams.Contains("/") ? family.First(p => p.GetBirth().Equals(parentParams)) : family.First(p => p.GetName().Equals(parentParams));
+                var child = childrenParams.Contains("/") ? family.First(p => p.GetBirth().Equals(childrenParams)) : family.First(p => p.GetName().Equals(childrenParams));
+                parent.AddChild(child);
+                child.AddParent(parent);
+            }
 
-        private static void AddChild(string name, List<Person> allPersons, string[] tokens)
-        {
-            var childName = tokens[2];
-            var childBirthday = tokens[3];
-            var child = new Person(childName);
-            child.SetBirth(childBirthday);
-            allPersons.First(p => p.GetName().Equals(name)).AddChildren(child);
-        }
-
-        private static void AddParent(string name, List<Person> allPersons, string[] tokens)
-        {
-            var parentName = tokens[2];
-            var parentBirthday = tokens[3];
-            var parent = new Person(parentName);
-            parent.SetBirth(parentBirthday);
-            allPersons.First(p => p.GetName().Equals(name)).AddParent(parent);
-        }
-
-        private static void AddPokemon(string name, List<Person> allPersons, string[] tokens)
-        {
-            var pokemonName = tokens[2];
-            var pokemonType = tokens[3];
-            var pokemon = new Pokemon(pokemonName, pokemonType);
-            allPersons.First(p => p.GetName().Equals(name)).AddPokemon(pokemon);
-        }
-
-        private static void SetCompany(string personName, List<Person> allPersons, string[] tokens)
-        {
-            var name = tokens[2];
-            var department = tokens[3];
-            var salary = double.Parse(tokens[4]);
-            var company = new Company(name, department, salary);
-            allPersons.First(p => p.GetName().Equals(personName)).SetCompany(company);
+            var person = searchFor.Contains("/") ? family.First(p => p.GetBirth().Equals(searchFor)) : family.First(p => p.GetName().Equals(searchFor));
+            person.Print();
         }
     }
 }
