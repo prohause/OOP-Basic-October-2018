@@ -1,51 +1,80 @@
-﻿namespace DefiningClasses
+﻿using System;
+using System.Collections.Generic;
+
+namespace DefiningClasses
 {
     public class Person
     {
-        private string name;
-        private int age;
+        private readonly string _name;
+        private string _dateOfBirth;
+        private Company _company;
+        private readonly List<Pokemon> _pokemons;
+        private readonly List<Person> _parents;
+        private readonly List<Person> _children;
+        private Car _car;
 
-        public string Name
+        public Person(string name)
         {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                name = value;
-            }
+            _name = name;
+            _dateOfBirth = null;
+            _company = null;
+            _pokemons = new List<Pokemon>();
+            _parents = new List<Person>();
+            _children = new List<Person>();
+            _car = null;
         }
 
-        public int Age
+        public void SetBirth(string input)
         {
-            get
-            {
-                return age;
-            }
-            set
-            {
-                age = value;
-            }
+            _dateOfBirth = input;
         }
 
-        public Person(string name, int age)
+        public void AddPokemon(Pokemon pokemon)
         {
-            Name = name;
-            Age = age;
+            _pokemons.Add(pokemon);
         }
 
-        public Person(int age) : this("No name", age)
+        public void AddParent(Person person)
         {
+            _parents.Add(person);
         }
 
-        public Person() : this("No name", 1)
+        public void AddChildren(Person person)
         {
+            _children.Add(person);
+        }
+
+        public void SetCar(Car car)
+        {
+            _car = car;
+        }
+
+        public void SetCompany(Company company)
+        {
+            _company = company;
         }
 
         public override string ToString()
         {
-            return $"{name} {age}";
+            return $"{_name} {_dateOfBirth}";
+        }
+
+        public string GetName()
+        {
+            return _name;
+        }
+
+        public void Print()
+        {
+            Console.WriteLine($"{_name}");
+            Console.WriteLine($"Company:{_company}");
+            Console.WriteLine($"Car:{_car}");
+            Console.WriteLine("Pokemon:");
+            _pokemons.ForEach(Console.WriteLine);
+            Console.WriteLine("Parents:");
+            _parents.ForEach(Console.WriteLine);
+            Console.WriteLine("Children:");
+            _children.ForEach(Console.WriteLine);
         }
     }
 }

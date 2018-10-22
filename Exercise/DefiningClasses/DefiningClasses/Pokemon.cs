@@ -1,27 +1,19 @@
 ﻿namespace DefiningClasses
 {
-    internal class Pokemon
+    public class Pokemon
     {
-        private readonly string _name;
-        private readonly string _element;
-        private int _health;
+        private readonly string _pokemonName;
+        private readonly string _pokemonType;
 
-        public Pokemon(string name, string element, int health)
+        public Pokemon(string pokemonName, string pokemonType)
         {
-            _name = name;
-            _element = element;
-            Health = health;
+            _pokemonName = pokemonName;
+            _pokemonType = pokemonType;
         }
 
-        public int Health
+        public override string ToString()
         {
-            get => _health;
-            set => _health = value;
-        }
-
-        public string GetElement()
-        {
-            return _element;
+            return $"{_pokemonName} {_pokemonType}";
         }
     }
 }
