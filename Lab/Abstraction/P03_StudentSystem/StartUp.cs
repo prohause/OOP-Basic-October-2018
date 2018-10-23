@@ -1,8 +1,8 @@
 ﻿namespace P03_StudentSystem
 {
-    class StartUp
+    public class StartUp
     {
-        static void Main()
+        private static void Main()
         {
             StudentSystem studentSystem = new StudentSystem();
             while (true)
