@@ -8,47 +8,48 @@ namespace P04_Hospital
     {
         public static void Main()
         {
-            Dictionary<string, List<string>> doktori = new Dictionary<string, List<string>>();
+            Dictionary<string, List<string>> doctors = new Dictionary<string, List<string>>();
             Dictionary<string, List<List<string>>> departments = new Dictionary<string, List<List<string>>>();
-
 
             string command = Console.ReadLine();
             while (command != "Output")
             {
-                string[] jetoni = command.Split();
-                var departament = jetoni[0];
-                var purvoIme = jetoni[1];
-                var vtoroIme = jetoni[2];
-                var pacient = jetoni[3];
-                var cqloIme = purvoIme + vtoroIme;
+                string[] tokens = command.Split();
+                var department = tokens[0];
+                var firstName = tokens[1];
+                var secondName = tokens[2];
+                var patient = tokens[3];
+                var fullName = firstName + " " + secondName;
 
-                if (!doktori.ContainsKey(purvoIme + vtoroIme))
+                if (!doctors.ContainsKey(fullName))
                 {
-                    doktori[cqloIme] = new List<string>();
+                    doctors[fullName] = new List<string>();
                 }
-                if (!departments.ContainsKey(departament))
+                if (!departments.ContainsKey(department))
                 {
-                    departments[departament] = new List<List<string>>();
-                    for (int stai = 0; stai < 20; stai++)
+                    departments[department] = new List<List<string>>();
+                    for (int rooms = 0; rooms < 20; rooms++)
                     {
-                        departments[departament].Add(new List<string>());
+                        departments[department].Add(new List<string>());
                     }
                 }
 
-                bool imaMqsto = departments[departament].SelectMany(x => x).Count() < 60;
-                if (imaMqsto)
+                bool isFreeSpaceLeft = departments[department].SelectMany(x => x).Count() < 60;
+                if (isFreeSpaceLeft)
                 {
-                    int staq = 0;
-                    doktori[cqloIme].Add(pacient);
-                    for (int st = 0; st < departments[departament].Count; st++)
+                    int room = 0;
+                    doctors[fullName].Add(patient);
+                    for (int i = 0; i < departments[department].Count; i++)
                     {
-                        if (departments[departament][st].Count < 3)
+                        if (departments[department][i].Count >= 3)
                         {
-                            staq = st;
-                            break;
+                            continue;
                         }
+
+                        room = i;
+                        break;
                     }
-                    departments[departament][staq].Add(pacient);
+                    departments[department][room].Add(patient);
                 }
 
                 command = Console.ReadLine();
@@ -60,17 +61,19 @@ namespace P04_Hospital
             {
                 string[] args = command.Split();
 
-                if (args.Length == 1)
+                switch (args.Length)
                 {
-                    Console.WriteLine(string.Join("\n", departments[args[0]].Where(x => x.Count > 0).SelectMany(x => x)));
-                }
-                else if (args.Length == 2 && int.TryParse(args[1], out int staq))
-                {
-                    Console.WriteLine(string.Join("\n", departments[args[0]][staq - 1].OrderBy(x => x)));
-                }
-                else
-                {
-                    Console.WriteLine(string.Join("\n", doktori[args[0] + args[1]].OrderBy(x => x)));
+                    case 1:
+                        Console.WriteLine(string.Join("\n", departments[args[0]].Where(x => x.Count > 0).SelectMany(x => x)));
+                        break;
+
+                    case 2 when int.TryParse(args[1], out int room):
+                        Console.WriteLine(string.Join("\n", departments[args[0]][room - 1].OrderBy(x => x)));
+                        break;
+
+                    default:
+                        Console.WriteLine(string.Join("\n", doctors[args[0] + " " + args[1]].OrderBy(x => x)));
+                        break;
                 }
                 command = Console.ReadLine();
             }
