@@ -19,9 +19,14 @@ namespace PersonsInfo
 
                 persons.Add(person);
             }
-            var bonus = decimal.Parse(Console.ReadLine());
-            persons.ForEach(p => p.IncreaseSalary(bonus));
-            persons.ForEach(p => Console.WriteLine(p.ToString()));
+            var myTeam = new Team("Test");
+            foreach (var person in persons)
+            {
+                myTeam.AddPlayer(person);
+            }
+
+            Console.WriteLine($"First team has {myTeam.FirstTeam.Count} players." +
+                              $"\r\nReserve team has {myTeam.ReserveTeam.Count} players.");
         }
     }
 }
