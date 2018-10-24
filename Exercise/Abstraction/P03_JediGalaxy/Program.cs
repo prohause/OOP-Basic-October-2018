@@ -3,20 +3,20 @@ using System.Linq;
 
 namespace P03_JediGalaxy
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
-            int[] dimestions = Console.ReadLine().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-            int x = dimestions[0];
-            int y = dimestions[1];
+            int[] dimensions = Console.ReadLine().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            int rowCount = dimensions[0];
+            int columnCount = dimensions[1];
 
-            int[,] matrix = new int[x, y];
+            int[,] matrix = new int[rowCount, columnCount];
 
             int value = 0;
-            for (int i = 0; i < x; i++)
+            for (int i = 0; i < rowCount; i++)
             {
-                for (int j = 0; j < y; j++)
+                for (int j = 0; j < columnCount; j++)
                 {
                     matrix[i, j] = value++;
                 }
@@ -26,40 +26,41 @@ namespace P03_JediGalaxy
             long sum = 0;
             while (command != "Let the Force be with you")
             {
-                int[] ivoS = command.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-                int[] evil = Console.ReadLine().Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
-                int xE = evil[0];
-                int yE = evil[1];
+                int[] ivoStartPoint = command.Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse).ToArray();
+                int[] evilStartPoint = Console.ReadLine().Split(new[] { " " }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(int.Parse).ToArray();
+                int evilPosX = evilStartPoint[0];
+                int evilPosY = evilStartPoint[1];
 
-                while (xE >= 0 && yE >= 0)
+                while (evilPosX >= 0 && evilPosY >= 0)
                 {
-                    if (xE >= 0 && xE < matrix.GetLength(0) && yE >= 0 && yE < matrix.GetLength(1))
+                    if (evilPosX >= 0 && evilPosX < matrix.GetLength(0) && evilPosY >= 0 && evilPosY < matrix.GetLength(1))
                     {
-                        matrix[xE, yE] = 0;
+                        matrix[evilPosX, evilPosY] = 0;
                     }
-                    xE--;
-                    yE--;
+                    evilPosX--;
+                    evilPosY--;
                 }
 
-                int xI = ivoS[0];
-                int yI = ivoS[1];
+                int ivoPosX = ivoStartPoint[0];
+                int IvoPosY = ivoStartPoint[1];
 
-                while (xI >= 0 && yI < matrix.GetLength(1))
+                while (ivoPosX >= 0 && IvoPosY < matrix.GetLength(1))
                 {
-                    if (xI >= 0 && xI < matrix.GetLength(0) && yI >= 0 && yI < matrix.GetLength(1))
+                    if (ivoPosX >= 0 && ivoPosX < matrix.GetLength(0) && IvoPosY >= 0 && IvoPosY < matrix.GetLength(1))
                     {
-                        sum += matrix[xI, yI];
+                        sum += matrix[ivoPosX, IvoPosY];
                     }
 
-                    yI++;
-                    xI--;
+                    IvoPosY++;
+                    ivoPosX--;
                 }
 
                 command = Console.ReadLine();
             }
 
             Console.WriteLine(sum);
-
         }
     }
 }
