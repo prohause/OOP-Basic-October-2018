@@ -4,9 +4,9 @@ using System.Linq;
 
 namespace P07_FamilyTree
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var familyTree = new List<Person>();
             string personInput = Console.ReadLine();
@@ -40,8 +40,7 @@ namespace P07_FamilyTree
 
                         if (currentPerson == null)
                         {
-                            currentPerson = new Person();
-                            currentPerson.Birthday = firstPerson;
+                            currentPerson = new Person { Birthday = firstPerson };
                             familyTree.Add(currentPerson);
                         }
 
@@ -53,8 +52,7 @@ namespace P07_FamilyTree
 
                         if (currentPerson == null)
                         {
-                            currentPerson = new Person();
-                            currentPerson.Name = firstPerson;
+                            currentPerson = new Person { Name = firstPerson };
                             familyTree.Add(currentPerson);
                         }
 
@@ -84,15 +82,17 @@ namespace P07_FamilyTree
 
                     Person copyPerson = copy.FirstOrDefault(p => p.Name == name || p.Birthday == birthday);
 
-                    if (copyPerson != null)
+                    if (copyPerson == null)
                     {
-                        familyTree.Remove(copyPerson);
-                        person.Parents.AddRange(copyPerson.Parents);
-                        person.Parents = person.Parents.Distinct().ToList();
-
-                        person.Children.AddRange(copyPerson.Children);
-                        person.Children = person.Children.Distinct().ToList();
+                        continue;
                     }
+
+                    familyTree.Remove(copyPerson);
+                    person.Parents.AddRange(copyPerson.Parents);
+                    person.Parents = person.Parents.Distinct().ToList();
+
+                    person.Children.AddRange(copyPerson.Children);
+                    person.Children = person.Children.Distinct().ToList();
                 }
             }
 
@@ -115,7 +115,7 @@ namespace P07_FamilyTree
 
             if (IsBirthday(child))
             {
-                if (!familyTree.Any(p => p.Birthday == child))
+                if (familyTree.All(p => p.Birthday != child))
                 {
                     childPerson.Birthday = child;
                 }
@@ -126,7 +126,7 @@ namespace P07_FamilyTree
             }
             else
             {
-                if (!familyTree.Any(p => p.Name == child))
+                if (familyTree.All(p => p.Name != child))
                 {
                     childPerson.Name = child;
                 }
@@ -141,9 +141,9 @@ namespace P07_FamilyTree
             familyTree.Add(childPerson);
         }
 
-        static bool IsBirthday(string input)
+        private static bool IsBirthday(string input)
         {
-            return Char.IsDigit(input[0]);
+            return char.IsDigit(input[0]);
         }
     }
 }
