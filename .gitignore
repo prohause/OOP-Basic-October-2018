@@ -261,5 +261,5 @@ __pycache__/
 *.pyc
 
 # Archives
-.zip
-.rar
+*.zip
+*.rar
