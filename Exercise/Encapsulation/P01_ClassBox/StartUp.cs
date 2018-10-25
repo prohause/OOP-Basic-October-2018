@@ -10,8 +10,16 @@ namespace P01_ClassBox
             var width = double.Parse(Console.ReadLine());
             var height = double.Parse(Console.ReadLine());
 
-            var myBox = new Box(length, width, height);
-            Console.WriteLine(myBox);
+            try
+            {
+                var myBox = new Box(length, width, height);
+                Console.WriteLine(myBox.ToString());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                //throw;
+            }
         }
     }
 }

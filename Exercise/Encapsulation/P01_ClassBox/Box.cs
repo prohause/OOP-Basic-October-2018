@@ -1,20 +1,52 @@
-﻿namespace P01_ClassBox
+﻿using System;
+
+namespace P01_ClassBox
 {
     public class Box
     {
+        private double _length;
+        private double _width;
+        private double _height;
+
         public double Length
         {
-            get;
+            get => _length;
+
+            private set
+            {
+                CheckValue(value, nameof(Length));
+
+                _length = value;
+            }
+        }
+
+        private void CheckValue(double value, string side)
+        {
+            if (value <= 0)
+            {
+                throw new ArgumentException($"{side} cannot be zero or negative.");
+            }
         }
 
         public double Width
         {
-            get;
+            get => _width;
+            private set
+            {
+                CheckValue(value, nameof(Width));
+
+                _width = value;
+            }
         }
 
         public double Height
         {
-            get;
+            get => _height;
+            set
+            {
+                CheckValue(value, nameof(Height));
+                _height = value;
+            }
         }
 
         public Box(double length, double width, double height)
