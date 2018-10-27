@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P01_ClassBox", "P01_ClassBox\P01_ClassBox.csproj", "{5139A487-F28C-4948-8217-242795225313}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P04_Shopping_Spree", "P04_Shopping_Spree\P04_Shopping_Spree.csproj", "{18230444-F125-4AB8-B956-DCED0B10D532}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P04_Shopping_Spree", "P04_Shopping_Spree\P04_Shopping_Spree.csproj", "{18230444-F125-4AB8-B956-DCED0B10D532}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P05_Pizza_Calories", "P05_Pizza_Calories\P05_Pizza_Calories.csproj", "{D839ADD9-5157-4878-9252-4E0E15767ACF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P05_Pizza_Calories", "P05_Pizza_Calories\P05_Pizza_Calories.csproj", "{D839ADD9-5157-4878-9252-4E0E15767ACF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P06_Football_Team_Generator", "P06_Football_Team_Generator\P06_Football_Team_Generator.csproj", "{58759193-681B-4867-95DA-DD2972976685}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{D839ADD9-5157-4878-9252-4E0E15767ACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D839ADD9-5157-4878-9252-4E0E15767ACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D839ADD9-5157-4878-9252-4E0E15767ACF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58759193-681B-4867-95DA-DD2972976685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58759193-681B-4867-95DA-DD2972976685}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58759193-681B-4867-95DA-DD2972976685}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58759193-681B-4867-95DA-DD2972976685}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
