@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2048
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Farm", "P01_Single_Inheritance\Farm.csproj", "{D6830738-A78D-4AA9-A2C5-A9E2E77D970D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6830738-A78D-4AA9-A2C5-A9E2E77D970D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6830738-A78D-4AA9-A2C5-A9E2E77D970D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6830738-A78D-4AA9-A2C5-A9E2E77D970D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6830738-A78D-4AA9-A2C5-A9E2E77D970D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {44DFF780-DF85-4D74-BD3B-DA222864A336}
+	EndGlobalSection
+EndGlobal
