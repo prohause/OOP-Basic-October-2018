@@ -2,7 +2,7 @@
 
 namespace Farm.Models
 {
-    internal class Animal
+    public class Animal
     {
         public void Eat()
         {

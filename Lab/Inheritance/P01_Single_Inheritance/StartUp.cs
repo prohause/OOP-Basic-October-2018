@@ -6,9 +6,13 @@ namespace Farm
     {
         private static void Main(string[] args)
         {
-            var myDog = new Dog();
-            myDog.Eat();
-            myDog.Bark();
+            var dog = new Dog();
+            dog.Eat();
+            dog.Bark();
+
+            var cat = new Cat();
+            cat.Eat();
+            cat.Meow();
         }
     }
 }

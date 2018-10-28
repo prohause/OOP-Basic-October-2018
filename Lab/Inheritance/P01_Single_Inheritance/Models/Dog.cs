@@ -2,7 +2,7 @@
 
 namespace Farm.Models
 {
-    internal class Dog : Animal
+    public class Dog : Animal
     {
         public void Bark()
         {
