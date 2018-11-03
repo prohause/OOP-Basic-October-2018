@@ -1,6 +1,6 @@
 ﻿namespace PersonInfo
 {
-    public class Citizen : IPerson
+    public class Citizen : IPerson, IIdentifiable, IBirthable
     {
         public string Name
         {
@@ -12,10 +12,22 @@
             get; set;
         }
 
-        public Citizen(string name, int age)
+        public string Id
+        {
+            get; set;
+        }
+
+        public string Birthdate
+        {
+            get; set;
+        }
+
+        public Citizen(string name, int age, string id, string birthdate)
         {
             Name = name;
             Age = age;
+            Id = id;
+            Birthdate = birthdate;
         }
     }
 }
