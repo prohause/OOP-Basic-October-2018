@@ -4,11 +4,6 @@ namespace P01_Vehicles
 {
     public class Car : Vehicle
     {
-        public Car(double fuel, double fuelConsumption) : base(fuel, fuelConsumption)
-        {
-            FuelConsumption += 0.9;
-        }
-
         public override void Drive(double distance)
         {
             var fuelNeeded = distance * FuelConsumption;
@@ -26,6 +21,11 @@ namespace P01_Vehicles
         public override void Refuel(double amount)
         {
             Fuel += amount;
+        }
+
+        public Car(double fuel, double fuelConsumption, double tankCapacity) : base(fuel, fuelConsumption, tankCapacity)
+        {
+            FuelConsumption += 0.9;
         }
     }
 }
